@@ -1,8 +1,8 @@
 ============================================================
-= cPanel Security Advisor Addon (BETA)
+= cPanel Security Advisor Addon (ALPHA RELEASE)
 ============================================================
 
-NO SUPPORT IS PROVIDED FOR THIS ADDON.  THIS IS A PRE-RELEASE BETA VERSION NOT INTENDED FOR 
+NO SUPPORT IS PROVIDED FOR THIS ADDON.  THIS IS A PRE-RELEASE ALPHA VERSION NOT INTENDED FOR 
 GENERAL USE.
 
 Install:
