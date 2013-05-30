@@ -14,6 +14,18 @@ cd addon_securityadvisor/pkg
 ./install
 
 
+Update:
+
+cd [WHERE YOU RAN THE INSTALL]
+
+cd addon_securityadvisor
+
+git pull
+
+cd addon_securityadvisor/pkg
+
+./install
+
 Use:
 
 Login to WHM.  
@@ -28,7 +40,6 @@ Uninstall:
 cd addon_securityadvisor/pkg
 
 ./uninstall
-
 
 
 
