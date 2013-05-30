@@ -1,6 +1,6 @@
 package Cpanel::Security::Advisor::Assessors::SSH;
 
-# Copyright (c) 2013, cPanel, Inc.                                                                                                                                                                      
+# Copyright (c) 2013, cPanel, Inc.
 # All rights reserved.
 # http://cpanel.net
 #
@@ -33,6 +33,7 @@ use base 'Cpanel::Security::Advisor::Assessors';
 sub generate_advice {
     my ($self) = @_;
     $self->_check_for_ssh_settings;
+    $self->_check_for_ssh_version;
 }
 
 sub _check_for_ssh_settings {
@@ -75,6 +76,41 @@ sub _check_for_ssh_settings {
         );
 
     }
+}
+
+sub _check_for_ssh_version {
+    my ($self) = @_;
+    my ( $latest_sshversion, $current_sshversion );
+
+    my $installed_rpms = $self->get_installed_rpms();
+    my $available_rpms = $self->get_available_rpms();
+
+    my $current_sshversion = $installed_rpms->{'openssh-server'};
+    my $latest_sshversion  = $available_rpms->{'openssh-server'};
+
+    if ( length $current_sshversion && length $latest_sshversion ) {
+        if ( $current_sshversion lt $latest_sshversion ) {
+            $self->add_bad_advice(
+                'text'       => ['Current SSH version is out of date.'],
+                'suggestion' => [
+                    'Update current system software in the "[output,url,_1,Update System Software,_2,_3]" area',
+                    '../scripts/dialog?dialog=updatesyssoftware',
+                    'target',
+                    '_blank'
+                ],
+            );
+        }
+        else {
+            $self->add_good_advice( 'text' => [ 'Current SSH version is up to date: ' . $current_sshversion ] );
+        }
+    }
+    else {
+        $self->add_warn_advice(
+            'text'       => ['Unable to determine SSH version'],
+            'suggestion' => ['Ensure that yum and rpm are working on your system.']
+        );
+    }
+
 }
 
 1;
